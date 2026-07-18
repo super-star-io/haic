@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" role="img" aria-labelledby="title desc">
+  <title id="title">Hidalgo AI Community</title>
+  <desc id="desc">Horizontal HAIC logo with a Gaussian curve, an integrated H and a technology wordmark.</desc>
+
+  <!-- Brand controls: change colors or the font stack here. -->
+  <style>
+    :root {
+      --haic-ink: #0b1626;
+      --haic-accent: #ffb000;
+      --haic-surface: #f7f5f0;
+    }
+    .ink-stroke { fill: none; stroke: var(--haic-ink); stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
+    .surface { fill: var(--haic-surface); }
+    .accent { fill: var(--haic-accent); }
+    .wordmark {
+      font-family: Inter, Montserrat, "Avenir Next", Arial, sans-serif;
+      font-size: 64px;
+      font-weight: 500;
+      letter-spacing: 9px;
+    }
+  </style>
+
+  <g id="logo-symbol" transform="translate(34 -41) scale(.86)">
+    <path id="letter-h" class="ink-stroke" d="M190 322V205 M190 255H322 M322 205V322"/>
+    <path id="gaussian-curve" class="ink-stroke" d="M60 322C139 322 151 118 256 118C361 118 373 322 452 322"/>
+    <g id="side-nodes">
+      <circle class="surface" cx="60" cy="322" r="18"/>
+      <circle class="ink-stroke" cx="60" cy="322" r="18"/>
+      <circle class="surface" cx="452" cy="322" r="18"/>
+      <circle class="ink-stroke" cx="452" cy="322" r="18"/>
+    </g>
+    <g id="mean-node">
+      <circle class="surface" cx="256" cy="322" r="37"/>
+      <circle class="accent" cx="256" cy="322" r="28"/>
+    </g>
+  </g>
+
+  <!-- Kept as live text for easy editing. Convert to outlines only for final print production. -->
+  <text id="wordmark" class="wordmark" x="500" y="220" fill="var(--haic-ink)" xml:space="preserve"><tspan>HIDALGO </tspan><tspan fill="var(--haic-accent)">AI</tspan><tspan> COMMUNITY</tspan></text>
+</svg>

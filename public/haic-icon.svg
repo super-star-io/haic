@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">HAIC icon</title>
+  <desc id="desc">An H integrated with a Gaussian curve and three connected data nodes.</desc>
+
+  <!-- Edit these three values to recolor the complete mark. -->
+  <style>
+    :root {
+      --haic-ink: #0b1626;
+      --haic-accent: #ffb000;
+      --haic-surface: #f7f5f0;
+    }
+    .ink-stroke { fill: none; stroke: var(--haic-ink); stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
+    .surface { fill: var(--haic-surface); }
+    .accent { fill: var(--haic-accent); }
+  </style>
+
+  <g id="haic-mark">
+    <!-- The H also acts as the statistical axis/mean structure. -->
+    <path id="letter-h" class="ink-stroke" d="M190 322V205 M190 255H322 M322 205V322"/>
+
+    <!-- Symmetric Gaussian bell curve. -->
+    <path id="gaussian-curve" class="ink-stroke" d="M60 322C139 322 151 118 256 118C361 118 373 322 452 322"/>
+
+    <!-- Standard-deviation/end nodes. -->
+    <g id="side-nodes">
+      <circle class="surface" cx="60" cy="322" r="18"/>
+      <circle class="ink-stroke" cx="60" cy="322" r="18"/>
+      <circle class="surface" cx="452" cy="322" r="18"/>
+      <circle class="ink-stroke" cx="452" cy="322" r="18"/>
+    </g>
+
+    <!-- Central mean / AI core node. -->
+    <g id="mean-node">
+      <circle class="surface" cx="256" cy="322" r="37"/>
+      <circle class="accent" cx="256" cy="322" r="28"/>
+    </g>
+  </g>
+</svg>
