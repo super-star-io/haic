@@ -56,7 +56,7 @@ export default function Home() {
           <a href="#aprender">Aprender</a>
           <a href="#comunidad">Comunidad</a>
         </nav>
-        <a className="header-cta" href="#contribuir">Contribuir <span>↗</span></a>
+        <a className="header-cta" href="/registro">Acceder <span>↗</span></a>
       </header>
 
       <section className="hero" id="inicio">
@@ -102,7 +102,7 @@ export default function Home() {
               <h3>{project.title}</h3>
               <p>{project.description}</p>
               <div className="tags">{project.stack.map((tag) => <span key={tag}>{tag}</span>)}</div>
-              <div className="card-footer"><span>{project.level}</span><a href="#contribuir" aria-label={`Abrir ${project.title}`}>Abrir proyecto →</a></div>
+              <div className="card-footer"><span>{project.level}</span><a href="/blog" aria-label={`Abrir ${project.title}`}>Abrir proyecto →</a></div>
             </article>
           ))}
         </div>
@@ -143,7 +143,7 @@ export default function Home() {
         <h2>¿Qué puedes aportar?</h2>
         <div className="contribution-list"><span>código</span><span>datos</span><span>documentación</span><span>un reto local</span></div>
         <p>Explora un proyecto, elige un issue etiquetado como <code>good first issue</code> y construye con la comunidad.</p>
-        <a className="button primary" href="https://github.com" target="_blank" rel="noreferrer">Explorar en GitHub ↗</a>
+        <div className="hero-actions centered"><a className="button primary" href="/blog">Explorar publicaciones →</a><a className="button secondary" href="/registro">Crear cuenta</a></div>
       </section>
 
       <footer><img src="/haic-logo.svg" alt="Hidalgo AI Community" /><p>IA abierta. Talento local. Impacto compartido.</p><div><a href="#proyectos">Proyectos</a><a href="#sesiones">YouTube</a><a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a></div><small>© 2026 HAIC · Hecho en Hidalgo, México</small></footer>
