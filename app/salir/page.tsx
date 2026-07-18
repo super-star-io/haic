@@ -1,0 +1,2 @@
+import Logout from "./Logout";
+export default async function SignOutPage({ searchParams }: { searchParams: Promise<{ return_to?: string }> }) { const params = await searchParams; const target = params.return_to?.startsWith("/") && !params.return_to.startsWith("//") ? params.return_to : "/"; return <main className="portal-shell"><section className="auth-card"><Logout returnTo={target}/></section></main>; }

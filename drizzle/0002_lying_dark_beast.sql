@@ -1,0 +1,1 @@
+ALTER TABLE `posts` ADD `show_on_home` integer DEFAULT false NOT NULL;

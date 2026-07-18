@@ -1,15 +1,19 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function RegistrationForm({ defaultName, email }: { defaultName: string; email: string }) {
-  const router = useRouter(); const [message, setMessage] = useState(""); const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState(""); const [saving, setSaving] = useState(false);
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); setSaving(true); setMessage(""); const form = new FormData(event.currentTarget);
-    const response = await fetch("/api/me", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: form.get("name"), organization: form.get("organization"), bio: form.get("bio") }) });
-    const data = await response.json() as { error?: string };
-    if (!response.ok) { setMessage(data.error ?? "No pudimos guardar tu perfil."); setSaving(false); return; }
-    router.push("/perfil"); router.refresh();
+    try {
+      const response = await fetch("/api/me", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: form.get("name"), organization: form.get("organization"), bio: form.get("bio") }) });
+      const data = await response.json().catch(() => ({ error: "El servidor devolvió una respuesta inválida." })) as { error?: string };
+      if (!response.ok) { setMessage(data.error ?? "No pudimos guardar tu perfil."); setSaving(false); return; }
+      window.location.assign("/perfil");
+    } catch {
+      setMessage("Se perdió la conexión con el servidor. Intenta nuevamente.");
+      setSaving(false);
+    }
   }
   return <form className="auth-form" onSubmit={submit}>
     <label>Correo verificado<input value={email} disabled /></label>

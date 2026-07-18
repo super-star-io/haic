@@ -21,7 +21,8 @@ export async function POST(request: Request) {
   const db = getDb();
   const [existing] = await db.select().from(users).where(eq(users.email, email)).limit(1);
   if (existing) {
-    const [user] = await db.update(users).set({ name, organization: body.organization?.trim().slice(0, 120) ?? existing.organization, bio: body.bio?.trim().slice(0, 500) ?? existing.bio, updatedAt: now }).where(eq(users.id, existing.id)).returning();
+    const bootstrap = bootstrapRole(email);
+    const [user] = await db.update(users).set({ name, organization: body.organization?.trim().slice(0, 120) ?? existing.organization, bio: body.bio?.trim().slice(0, 500) ?? existing.bio, role: bootstrap === "superadmin" && existing.role === "member" ? "superadmin" : existing.role, accessLevel: bootstrap === "superadmin" && existing.role === "member" ? 100 : existing.accessLevel, updatedAt: now }).where(eq(users.id, existing.id)).returning();
     return Response.json({ user });
   }
   const role = bootstrapRole(email);

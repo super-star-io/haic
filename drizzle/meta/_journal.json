@@ -8,6 +8,27 @@
       "when": 1784352273023,
       "tag": "0000_plain_peter_parker",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1784353244573,
+      "tag": "0001_lean_wiccan",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1784355634870,
+      "tag": "0002_lying_dark_beast",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1784357074925,
+      "tag": "0003_curvy_princess_powerful",
+      "breakpoints": true
     }
   ]
 }

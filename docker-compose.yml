@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: haic
+      POSTGRES_USER: haic
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-haic-change-me}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U haic -d haic"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    volumes:
+      - haic_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+
+  migrate:
+    build:
+      context: .
+      target: migrations
+    restart: "no"
+    environment:
+      DATABASE_URL: postgresql://haic:${POSTGRES_PASSWORD:-local-haic-change-me}@postgres:5432/haic
+    command: ["node", "scripts/migrate-postgres.mjs"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  app:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://haic:${POSTGRES_PASSWORD:-local-haic-change-me}@postgres:5432/haic
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-local-compose-secret-with-at-least-32-characters}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      HAIC_BOOTSTRAP_SUPERUSER_EMAIL: ${HAIC_BOOTSTRAP_SUPERUSER_EMAIL:-fernando.robles@outlook.com}
+    ports:
+      - "3000:3000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+
+volumes:
+  haic_postgres_data:
