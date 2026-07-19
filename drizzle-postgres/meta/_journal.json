@@ -8,6 +8,13 @@
       "when": 1784397460581,
       "tag": "0000_young_mastermind",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1784440889067,
+      "tag": "0001_fast_impossible_man",
+      "breakpoints": true
     }
   ]
 }

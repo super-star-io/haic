@@ -31,8 +31,38 @@ test("renders HOME data from the server without a client fetch", async () => {
     readFile(new URL("app/HomeContent.tsx", root), "utf8"),
   ]);
   assert.match(page, /await getDb\(\)/);
-  assert.match(page, /<HomeContent initialProjects=\{initialProjects\}/);
+  assert.match(page, /<HomeContent initialProjects=\{initialProjects\} hasProjectAccess=\{hasProjectAccess\}/);
   assert.doesNotMatch(content, /fetch\("\/api\/home"/);
+});
+
+test("gates project content behind an active session", async () => {
+  const [home, blog, detail, homeApi] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/blog/page.tsx", root), "utf8"),
+    readFile(new URL("app/blog/[slug]/page.tsx", root), "utf8"),
+    readFile(new URL("app/api/home/route.ts", root), "utf8"),
+  ]);
+  assert.match(home, /hasProjectAccess/);
+  assert.match(home, /hasProjectAccess \? await getDb\(\)/);
+  assert.match(blog, /requireChatGPTUser\("\/blog"\)/);
+  assert.ok(blog.indexOf("requireChatGPTUser") < blog.indexOf("select().from(posts)"));
+  assert.ok(detail.indexOf("requireChatGPTUser") < detail.indexOf("select().from(posts)"));
+  assert.match(homeApi, /status: 401/);
+  assert.match(homeApi, /status: 403/);
+});
+
+test("uses standard registrations and superadmin-only editorial access", async () => {
+  const [schema, authentication, accessRules, postApi] = await Promise.all([
+    readFile(new URL("db/schema.ts", root), "utf8"),
+    readFile(new URL("lib/auth.ts", root), "utf8"),
+    readFile(new URL("lib/access.ts", root), "utf8"),
+    readFile(new URL("app/api/admin/posts/route.ts", root), "utf8"),
+  ]);
+  assert.match(schema, /default\("standard"\)/);
+  assert.match(authentication, /defaultValue: "standard"/);
+  assert.match(accessRules, /canEdit\(role: string\) \{ return role === "superadmin"; \}/);
+  assert.match(postApi, /!canEdit\(member\.role\)/);
+  assert.doesNotMatch(`${schema}${authentication}${accessRules}`, /"editor"/);
 });
 
 test("uses static metadata and no bundled web font", async () => {

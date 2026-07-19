@@ -8,7 +8,7 @@ Content-Type: application/json
 Cookie: better-auth.session_token=<SESIÓN_LOCAL>
 ```
 
-El endpoint requiere un usuario autenticado y activo con rol `editor`, `admin` o `superadmin`. La cookie la establece Better Auth al iniciar sesión y no debe copiarse a documentación, repositorios o logs.
+El endpoint requiere un usuario autenticado y activo con rol `superadmin`. Las cuentas `standard` pueden leer el blog, y los administradores pueden gestionar usuarios, pero ninguno de esos roles puede publicar. La cookie la establece Better Auth al iniciar sesión y no debe copiarse a documentación, repositorios o logs.
 
 ### Cuerpo JSON
 
