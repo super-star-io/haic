@@ -4,7 +4,7 @@ const createdAt = () => timestamp("created_at", { withTimezone: true, mode: "dat
 const updatedAt = () => timestamp("updated_at", { withTimezone: true, mode: "date" }).notNull();
 
 export const users = pgTable("users", {
-  id: text("id").primaryKey(), email: text("email").notNull().unique(), emailVerified: boolean("email_verified").notNull().default(false), image: text("image"), name: text("name").notNull(), organization: text("organization").notNull().default(""), bio: text("bio").notNull().default(""), role: text("role", { enum: ["standard", "admin", "superadmin"] }).notNull().default("standard"), accessLevel: integer("access_level").notNull().default(1), status: text("status", { enum: ["active", "suspended"] }).notNull().default("active"), createdAt: createdAt(), updatedAt: updatedAt(),
+  id: text("id").primaryKey(), email: text("email").notNull().unique(), emailVerified: boolean("email_verified").notNull().default(false), image: text("image"), name: text("name").notNull(), organization: text("organization").notNull().default(""), bio: text("bio").notNull().default(""), role: text("role", { enum: ["standard", "admin", "superadmin"] }).notNull().default("standard"), accessLevel: integer("access_level").notNull().default(1), status: text("status", { enum: ["active", "suspended"] }).notNull().default("active"), theme: text("theme", { enum: ["light", "dark", "system"] }).notNull().default("system"), createdAt: createdAt(), updatedAt: updatedAt(),
 }, (table) => [uniqueIndex("users_email_idx").on(table.email)]);
 
 export const sessions = pgTable("sessions", {
