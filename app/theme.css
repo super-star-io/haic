@@ -19,9 +19,14 @@ html[data-resolved-theme="dark"] .auth-tabs button.active{color:#fff;background:
 html[data-resolved-theme="dark"] .form-error{color:#ff8e8e}
 html[data-resolved-theme="dark"] .google-button{background:#eef3f9;color:#17283d;border-color:#b8c5d5}
 html[data-resolved-theme="dark"] .google-button:hover{background:#fff}
+html[data-resolved-theme="dark"] .home-visibility-field{background:#0d1928!important;border-color:#42536a!important;color:#f5f8fc}
+html[data-resolved-theme="dark"] .home-visibility-field small{color:#a9b7ca}
+html[data-resolved-theme="dark"] .home-visibility-field input[type="checkbox"]{background:#08111d;border-color:#6f8198}
 html[data-resolved-theme="dark"] .user-menu summary:focus-visible,
 html[data-resolved-theme="dark"] .user-dropdown a:focus-visible,
 html[data-resolved-theme="dark"] .user-dropdown button:focus-visible,
 html[data-resolved-theme="dark"] .auth-tabs button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
 @media(max-width:980px){.profile-shell{grid-template-columns:minmax(0,720px)}.profile-shell>.portal-brand{grid-column:1}.profile-shell .profile-card,.theme-preference{margin:20px 0}}
 @media(max-width:620px){.theme-options{grid-template-columns:1fr}.theme-options button{min-height:140px}}
+
+html[data-resolved-theme="dark"] .project-empty-state{background:linear-gradient(135deg,#0c1725 0,#111e2e 58%,#172238 100%);border-color:#42536a;color:#e7edf6}html[data-resolved-theme="dark"] .project-empty-state:after{opacity:.08}html[data-resolved-theme="dark"] .empty-orbit{border-color:rgba(231,237,246,.2)}html[data-resolved-theme="dark"] .empty-core{background:#050c15;color:var(--amber);box-shadow:0 20px 55px rgba(0,0,0,.45)}html[data-resolved-theme="dark"] .empty-node{border-color:#111e2e}html[data-resolved-theme="dark"] .project-empty-promises span{background:#0d1928;border-color:#42536a;color:#dce5f0}

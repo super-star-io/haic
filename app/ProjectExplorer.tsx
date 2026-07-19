@@ -23,7 +23,21 @@ export default function ProjectExplorer({ projects }: { projects: HomeEntry[] })
         <div className="project-purpose"><b>¿Cómo puedes ayudar?</b><span>{project.youtubeUrl ? "Aprende con la clase" : "Conoce el problema"}</span>{project.githubUrl && <span>Mejora la solución</span>}<span>Comparte una idea</span></div>
         <div className="card-footer"><span>{project.requiredAccessLevel > 0 ? "Detalles para miembros" : "Abierto para todos"}</span><a href={`/blog/${project.slug}`} aria-label={`Conocer la misión ${project.title}`}>Conocer la misión →</a></div>
       </article>)}
-      {!visibleProjects.length && <div className="empty-state"><b>No hay proyectos destacados en esta categoría.</b><p>Activa “Mostrar en HOME” en una entrada publicada desde el administrador.</p></div>}
+      {!visibleProjects.length && <section className="project-empty-state" aria-labelledby="projects-coming-title">
+        <div className="project-empty-visual" aria-hidden="true">
+          <span className="empty-orbit empty-orbit-one" />
+          <span className="empty-orbit empty-orbit-two" />
+          <span className="empty-core">HAIC</span>
+          <i className="empty-node node-one" /><i className="empty-node node-two" /><i className="empty-node node-three" />
+        </div>
+        <div className="project-empty-copy">
+          <span className="kicker">PRIMERAS MISIONES EN PREPARACIÓN</span>
+          <h3 id="projects-coming-title">Estamos preparando proyectos que valga la pena construir juntos.</h3>
+          <p>Muy pronto encontrarás retos reales de Hidalgo convertidos en clases, repositorios y primeras tareas claras para comenzar a contribuir.</p>
+          <div className="project-empty-promises"><span>Clases prácticas</span><span>Problemas reales</span><span>Aportes para todos</span></div>
+          <a href="/participar">Descubre cómo podrás participar <span>→</span></a>
+        </div>
+      </section>}
     </div>
   </>;
 }
