@@ -4,8 +4,8 @@ Este documento describe el estado conocido de la plataforma. Debe actualizarse c
 
 ## Aplicación
 
-- Aplicación React con enrutamiento estilo Next.js/vinext.
-- Persistencia en Cloudflare D1.
+- Aplicación Next.js desplegada como runtime Node.js.
+- Persistencia en PostgreSQL.
 - Acceso a datos mediante Drizzle ORM.
 - Autenticación con Better Auth.
 - Inicio local por correo y contraseña; Google OAuth es opcional cuando existen credenciales.
@@ -13,7 +13,7 @@ Este documento describe el estado conocido de la plataforma. Debe actualizarse c
 ## Rutas principales
 
 - `/`: portada pública y hero de HAIC.
-- `/blog`: catálogo público de entradas.
+- `/blog`: catálogo de entradas para usuarios con sesión activa.
 - `/blog/[slug]`: detalle sujeto al nivel de acceso de la entrada.
 - `/registro`: alta e inicio de sesión.
 - `/perfil`: cuenta del usuario autenticado.
@@ -35,13 +35,13 @@ Tablas principales:
 - `posts`: contenido y nivel mínimo requerido.
 - `audit_logs`: trazabilidad de operaciones sensibles.
 
-Roles conocidos: `member`, `contributor`, `editor`, `admin`, `superadmin`.
+Roles conocidos: `standard`, `admin`, `superadmin`.
 
 ## Límites de confianza
 
 - El navegador nunca decide por sí solo si una operación está permitida.
 - Los handlers y consultas del servidor aplican autenticación, rol, estado y nivel de acceso.
-- D1 es la fuente de verdad de usuarios, sesiones, permisos y contenido.
+- PostgreSQL es la fuente de verdad de usuarios, sesiones, permisos y contenido.
 - Las variables de entorno contienen secretos; el repositorio sólo documenta sus nombres.
 
 ## Identidad visual
@@ -50,4 +50,3 @@ Roles conocidos: `member`, `contributor`, `editor`, `admin`, `superadmin`.
 - Ámbar: `#ffb000`.
 - Fondo claro: `#f7f5f0`.
 - Estética editorial tecnológica, limpia y de interacción evidente.
-

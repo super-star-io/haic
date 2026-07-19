@@ -9,9 +9,11 @@ if (payload.version !== 1) throw new Error("Unsupported export version.");
 const sql = postgres(process.env.DATABASE_URL, { max: 1 });
 const dateColumns = new Set(["created_at", "updated_at", "published_at", "expires_at", "access_token_expires_at", "refresh_token_expires_at"]);
 const booleanColumns = new Set(["email_verified", "show_on_home"]);
+const legacyRoles = new Set(["member", "contributor", "editor"]);
 const normalize = (rows) => rows.map((row) => Object.fromEntries(Object.entries(row).map(([key, value]) => {
   if (dateColumns.has(key) && value != null) { const numeric = Number(value); return [key, new Date(numeric < 1e12 ? numeric * 1000 : numeric).toISOString()]; }
   if (booleanColumns.has(key) && value != null) return [key, Boolean(value)];
+  if (key === "role" && legacyRoles.has(value)) return [key, "standard"];
   return [key, value];
 })));
 

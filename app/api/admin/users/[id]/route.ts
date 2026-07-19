@@ -3,7 +3,7 @@ import { getDb } from "../../../../../db";
 import { auditLogs, users } from "../../../../../db/schema";
 import { canManageUsers, requireMember, type Role } from "../../../../../lib/access";
 
-const roles: Role[] = ["member", "contributor", "editor", "admin", "superadmin"];
+const roles: Role[] = ["standard", "admin", "superadmin"];
 export async function PATCH(request: Request, context: { params: Promise<{ id: string }> }) {
   const actor = await requireMember();
   if (!actor || !canManageUsers(actor.role)) return Response.json({ error: "Sin permiso." }, { status: 403 });

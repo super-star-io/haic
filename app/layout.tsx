@@ -6,18 +6,18 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://haic-hidalgo.org";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "HAIC · Inteligencia artificial con impacto local",
-  description: "Proyectos abiertos, sesiones y conocimiento práctico de inteligencia artificial desde Hidalgo.",
+  title: "HAIC · Tecnología que mejora nuestra comunidad",
+  description: "Aprende inteligencia artificial colaborando en proyectos reales y abiertos que buscan resolver problemas de Hidalgo.",
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   openGraph: {
-    title: "HAIC · IA real. Impacto local.",
-    description: "Proyectos, comunidad y conocimiento abierto desde Hidalgo.",
+    title: "HAIC · Tecnología que mejora vidas",
+    description: "Aprende, construye y genera impacto con una comunidad abierta desde Hidalgo.",
     images: [{ url: "/og.jpg", width: 1200, height: 686 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "HAIC · IA real. Impacto local.",
-    description: "Proyectos, comunidad y conocimiento abierto desde Hidalgo.",
+    title: "HAIC · Tecnología que mejora vidas",
+    description: "Aprende, construye y genera impacto con una comunidad abierta desde Hidalgo.",
     images: ["/og.jpg"],
   },
 };

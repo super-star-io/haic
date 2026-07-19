@@ -4,8 +4,8 @@ import { getDb } from "../db";
 import { users } from "../db/schema";
 import { getRuntimeEnv } from "./env";
 
-export type Role = "member" | "contributor" | "editor" | "admin" | "superadmin";
-export const roleLabels: Record<Role, string> = { member: "Miembro", contributor: "Colaborador", editor: "Editor", admin: "Administrador", superadmin: "Superusuario" };
+export type Role = "standard" | "admin" | "superadmin";
+export const roleLabels: Record<Role, string> = { standard: "Estándar", admin: "Administrador", superadmin: "Superusuario" };
 
 export async function currentMember() {
   const identity = await getChatGPTUser();
@@ -20,12 +20,12 @@ export async function requireMember() {
   return member;
 }
 
-export function canEdit(role: string) { return role === "editor" || role === "admin" || role === "superadmin"; }
+export function canEdit(role: string) { return role === "superadmin"; }
 export function canManageUsers(role: string) { return role === "admin" || role === "superadmin"; }
 
 export function bootstrapRole(email: string): Role {
   const configured = getRuntimeEnv().bootstrapSuperuserEmail;
-  return configured && configured === email.toLowerCase() ? "superadmin" : "member";
+  return configured && configured === email.toLowerCase() ? "superadmin" : "standard";
 }
 
 export function slugify(value: string) {
