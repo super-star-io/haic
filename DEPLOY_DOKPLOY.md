@@ -86,6 +86,7 @@ NODE_ENV=production
 PORT=3000
 DATABASE_URL=postgresql://haic_app:SECRET@INTERNAL_POSTGRES_HOST:5432/haic
 BETTER_AUTH_URL=https://haic-hidalgo.org
+BETTER_AUTH_TRUSTED_ORIGINS=https://haic-hidalgo.org,https://www.haic-hidalgo.org
 BETTER_AUTH_SECRET=GENERATED_SECRET
 NEXT_PUBLIC_SITE_URL=https://haic-hidalgo.org
 GOOGLE_CLIENT_ID=GOOGLE_CLIENT_ID

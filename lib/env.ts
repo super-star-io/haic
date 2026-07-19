@@ -8,6 +8,7 @@ export type RuntimeEnv = {
   authUrl: string;
   authSecret: string;
   siteUrl: string;
+  trustedOrigins: string[];
   googleEnabled: boolean;
   googleClientId?: string;
   googleClientSecret?: string;
@@ -41,6 +42,23 @@ export function getRuntimeEnv(source: NodeJS.ProcessEnv = process.env): RuntimeE
   const siteOrigin = validUrl("NEXT_PUBLIC_SITE_URL", siteUrl, ["http:", "https:"]).origin;
   if (authOrigin !== siteOrigin) throw new Error("BETTER_AUTH_URL and NEXT_PUBLIC_SITE_URL must use the same origin.");
 
+  const port = Number(source.PORT || 3000);
+  if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error("PORT must be an integer between 1 and 65535.");
+
+  const configuredTrustedOrigins = (source.BETTER_AUTH_TRUSTED_ORIGINS || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+    .map((origin) => validUrl("BETTER_AUTH_TRUSTED_ORIGINS", origin, ["http:", "https:"]).origin);
+  const trustedOrigins = new Set([authOrigin, siteOrigin, ...configuredTrustedOrigins]);
+  if (isProduction) {
+    const productionUrl = new URL(siteOrigin);
+    if (productionUrl.hostname === "haic-hidalgo.org") trustedOrigins.add("https://www.haic-hidalgo.org");
+  } else {
+    trustedOrigins.add(`http://localhost:${port}`);
+    trustedOrigins.add(`http://127.0.0.1:${port}`);
+  }
+
   const authSecret = source.BETTER_AUTH_SECRET?.trim() || "local-development-secret-with-32-characters";
   if (isProduction) {
     const localProductionRun = [new URL(authOrigin).hostname, new URL(siteOrigin).hostname].every((hostname) => hostname === "localhost" || hostname === "127.0.0.1");
@@ -53,13 +71,10 @@ export function getRuntimeEnv(source: NodeJS.ProcessEnv = process.env): RuntimeE
   const googleClientSecret = source.GOOGLE_CLIENT_SECRET?.trim();
   if (Boolean(googleClientId) !== Boolean(googleClientSecret)) throw new Error("GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET must be configured together.");
 
-  const port = Number(source.PORT || 3000);
-  if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error("PORT must be an integer between 1 and 65535.");
-
-  return { nodeEnv, isProduction, port, databaseUrl, authUrl: authOrigin, authSecret, siteUrl: siteOrigin, googleEnabled: Boolean(googleClientId && googleClientSecret), googleClientId, googleClientSecret, bootstrapSuperuserEmail: source.HAIC_BOOTSTRAP_SUPERUSER_EMAIL?.trim().toLowerCase() || undefined };
+  return { nodeEnv, isProduction, port, databaseUrl, authUrl: authOrigin, authSecret, siteUrl: siteOrigin, trustedOrigins: [...trustedOrigins], googleEnabled: Boolean(googleClientId && googleClientSecret), googleClientId, googleClientSecret, bootstrapSuperuserEmail: source.HAIC_BOOTSTRAP_SUPERUSER_EMAIL?.trim().toLowerCase() || undefined };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const env = getRuntimeEnv();
-  console.log(JSON.stringify({ mode: env.nodeEnv, port: env.port, database: new URL(env.databaseUrl).hostname, authUrl: env.authUrl, siteUrl: env.siteUrl, googleEnabled: env.googleEnabled, bootstrapSuperuserEmail: env.bootstrapSuperuserEmail ?? null }, null, 2));
+  console.log(JSON.stringify({ mode: env.nodeEnv, port: env.port, database: new URL(env.databaseUrl).hostname, authUrl: env.authUrl, siteUrl: env.siteUrl, trustedOrigins: env.trustedOrigins, googleEnabled: env.googleEnabled, bootstrapSuperuserEmail: env.bootstrapSuperuserEmail ?? null }, null, 2));
 }

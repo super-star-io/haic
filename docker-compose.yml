@@ -38,6 +38,7 @@ services:
       NODE_ENV: production
       DATABASE_URL: postgresql://haic:${POSTGRES_PASSWORD:-local-haic-change-me}@postgres:5432/haic
       BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+      BETTER_AUTH_TRUSTED_ORIGINS: ${BETTER_AUTH_TRUSTED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-local-compose-secret-with-at-least-32-characters}
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
