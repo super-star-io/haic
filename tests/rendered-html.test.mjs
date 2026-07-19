@@ -65,6 +65,26 @@ test("uses standard registrations and superadmin-only editorial access", async (
   assert.doesNotMatch(`${schema}${authentication}${accessRules}`, /"editor"/);
 });
 
+test("persists and initializes the account theme", async () => {
+  const [schema, layout, controller, profile, endpoint, themeCss] = await Promise.all([
+    readFile(new URL("db/schema.ts", root), "utf8"),
+    readFile(new URL("app/layout.tsx", root), "utf8"),
+    readFile(new URL("app/ThemeController.tsx", root), "utf8"),
+    readFile(new URL("app/perfil/ThemePreference.tsx", root), "utf8"),
+    readFile(new URL("app/api/me/theme/route.ts", root), "utf8"),
+    readFile(new URL("app/theme.css", root), "utf8"),
+  ]);
+  assert.match(schema, /theme: text\("theme"/);
+  assert.match(schema, /\["light", "dark", "system"\]/);
+  assert.match(layout, /haic-theme/);
+  assert.match(controller, /prefers-color-scheme: dark/);
+  assert.match(controller, /fetch\("\/api\/me"/);
+  assert.match(profile, /role="radiogroup"/);
+  assert.match(endpoint, /requireMember\(\)/);
+  assert.match(endpoint, /status: 400/);
+  assert.match(themeCss, /data-resolved-theme="dark"/);
+});
+
 test("uses static metadata and no bundled web font", async () => {
   const layout = await readFile(new URL("app/layout.tsx", root), "utf8");
   assert.match(layout, /export const metadata: Metadata/);

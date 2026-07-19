@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./requirements.css";
+import "./theme.css";
+import ThemeController from "./ThemeController";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://haic-hidalgo.org";
 
@@ -28,8 +30,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body>{children}</body>
+    <html lang="es" data-theme="system" data-resolved-theme="light" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('haic-theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=t;document.documentElement.dataset.resolvedTheme=d?'dark':'light'}catch(e){}})();` }} /></head>
+      <body><ThemeController />{children}</body>
     </html>
   );
 }
