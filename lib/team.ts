@@ -28,8 +28,8 @@ export const teamMembers: TeamMember[] = [
     role: "Geólogo de Exploración Senior",
     education: "Maestría en Inteligencia Artificial en curso · UPMH",
     description: "Especialista en cartografía, sensores remotos y geociencia de datos.",
-    imageUrl: "/team/eduardo-martinez.svg",
-    imageAlt: "Iniciales EM",
+    imageUrl: "/team/eduardo-martinez.jpeg",
+    imageAlt: "Retrato de Eduardo T. Martínez Morales",
     linkedinUrl: "https://www.linkedin.com/in/martinezmoraleset/",
   },
   {
@@ -37,8 +37,8 @@ export const teamMembers: TeamMember[] = [
     role: "Profesional de tecnología · Emergys México",
     education: "Universidad Politécnica Metropolitana de Hidalgo · 2022–2025",
     description: "Desarrolla su trayectoria en tecnología, con experiencia en Emergys México y formación en la Universidad Politécnica Metropolitana de Hidalgo.",
-    imageUrl: "/team/jose-manuel-meza.svg",
-    imageAlt: "Iniciales JM",
+    imageUrl: "/team/jose-manuel-meza.jpeg",
+    imageAlt: "Retrato de José Manuel Meza González",
     linkedinUrl: "https://www.linkedin.com/in/jose-manuel-meza-gonzalez-574342a6/",
   },
   {
@@ -46,8 +46,8 @@ export const teamMembers: TeamMember[] = [
     role: "Ingeniero de Sistemas",
     education: "Universidad Politécnica Metropolitana de Hidalgo · 2025–2027",
     description: "Ingeniero de sistemas con experiencia gerencial e interés en tecnología y desarrollo.",
-    imageUrl: "/team/mauro-ramos.svg",
-    imageAlt: "Iniciales MR",
+    imageUrl: "/team/mauro-ramos.png",
+    imageAlt: "Retrato de Mauro Alberto Ramos Ángeles",
     linkedinUrl: "https://www.linkedin.com/in/mauro-alberto-ramos-angeles-4b4649194/",
   },
 ];
