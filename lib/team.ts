@@ -1,4 +1,5 @@
 export type TeamMember = {
+  slug: string;
   name: string;
   role: string;
   education: string;
@@ -10,6 +11,7 @@ export type TeamMember = {
 
 export const teamMembers: TeamMember[] = [
   {
+    slug: "fernando-robles-rivera",
     name: "Fernando Robles Rivera",
     role: "Ingeniero en Sistemas Computacionales",
     education: "Maestría en Inteligencia Artificial",
@@ -17,6 +19,7 @@ export const teamMembers: TeamMember[] = [
     imageUrl: "/team/fernando-robles-rivera-1024.avif",
   },
   {
+    slug: "manuel-antonio-camacho-reyes",
     name: "Manuel Antonio Camacho Reyes",
     role: "Desarrollador de Sistemas Inteligentes",
     education: "Maestría en Inteligencia Artificial",
@@ -24,6 +27,7 @@ export const teamMembers: TeamMember[] = [
     imageUrl: "/team/manuel-antonio-camacho-reyes-1024.avif",
   },
   {
+    slug: "eduardo-martinez-morales",
     name: "Eduardo T. Martínez Morales",
     role: "Geólogo de Exploración Senior",
     education: "Maestría en Inteligencia Artificial en curso · UPMH",
@@ -33,6 +37,7 @@ export const teamMembers: TeamMember[] = [
     linkedinUrl: "https://www.linkedin.com/in/martinezmoraleset/",
   },
   {
+    slug: "jose-manuel-meza-gonzalez",
     name: "José Manuel Meza González",
     role: "Profesional de tecnología · Emergys México",
     education: "Universidad Politécnica Metropolitana de Hidalgo · 2022–2025",
@@ -42,6 +47,7 @@ export const teamMembers: TeamMember[] = [
     linkedinUrl: "https://www.linkedin.com/in/jose-manuel-meza-gonzalez-574342a6/",
   },
   {
+    slug: "mauro-alberto-ramos-angeles",
     name: "Mauro Alberto Ramos Ángeles",
     role: "Ingeniero de Sistemas",
     education: "Universidad Politécnica Metropolitana de Hidalgo · 2025–2027",

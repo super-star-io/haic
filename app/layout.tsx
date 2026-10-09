@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./requirements.css";
 import "./theme.css";
+import "./community.css";
 import ThemeController from "./ThemeController";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://haic-hidalgo.org";
