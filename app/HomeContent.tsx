@@ -101,7 +101,7 @@ export default function Home({ initialProjects = [], hasProjectAccess = false }:
 
       <section className="section people-section" id="personas">
         <div className="section-heading"><div><span className="kicker">CONOCE A LA COMUNIDAD</span><h2>Personas detrás<br />de cada proyecto.</h2></div><p>HAIC comienza con un equipo pequeño y una invitación abierta: compartir lo que sabemos para que otras personas puedan avanzar.</p></div>
-        <div className="home-team-grid">{teamMembers.map((member) => <article key={member.name}><div><ResponsiveImage src={member.imageUrl} alt={`Retrato de ${member.name}`} loading="lazy" sizes="160px" kind="team" /></div><span>{member.education}</span><h3>{member.name}</h3><strong>{member.role}</strong><p>{member.description}</p></article>)}</div>
+        <div className="home-team-grid">{teamMembers.map((member) => <article key={member.name}><div><ResponsiveImage src={member.imageUrl} alt={member.imageAlt ?? `Retrato de ${member.name}`} loading="lazy" sizes="160px" kind="team" /></div><span>{member.education}</span><h3>{member.name}</h3><strong>{member.role}</strong><p>{member.description}</p>{member.linkedinUrl && <a className="people-link" href={member.linkedinUrl} target="_blank" rel="noreferrer">Ver perfil de LinkedIn <span>↗</span></a>}</article>)}</div>
         <a className="people-link" href="/nosotros">Conoce nuestra historia y propósito <span>→</span></a>
       </section>
 
