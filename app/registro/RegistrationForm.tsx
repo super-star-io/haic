@@ -21,6 +21,6 @@ export default function RegistrationForm({ defaultName, email }: { defaultName: 
     <label>Organización o comunidad<input name="organization" placeholder="Opcional" maxLength={120} /></label>
     <label>¿Qué te interesa construir?<textarea name="bio" placeholder="Cuéntanos brevemente" maxLength={500} rows={4} /></label>
     {message && <p className="form-error">{message}</p>}
-    <button className="button primary" disabled={saving}>{saving ? "Creando cuenta…" : "Crear mi cuenta HAIC →"}</button>
+    <button className="button primary" disabled={saving}>{saving ? "Guardando perfil…" : "Completar mi perfil →"}</button>
   </form>;
 }

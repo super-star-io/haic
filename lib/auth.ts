@@ -12,5 +12,6 @@ export const auth = betterAuth({
   user: { modelName: "users", additionalFields: { organization: { type: "string", required: false, defaultValue: "", input: false }, bio: { type: "string", required: false, defaultValue: "", input: false }, role: { type: "string", required: false, defaultValue: "standard", input: false }, accessLevel: { type: "number", required: false, defaultValue: 1, input: false }, status: { type: "string", required: false, defaultValue: "active", input: false }, theme: { type: "string", required: false, defaultValue: "system", input: false } } },
   session: { modelName: "sessions" }, account: { modelName: "accounts" }, verification: { modelName: "verifications" },
   emailAndPassword: { enabled: true, minPasswordLength: 8 },
+  account: { accountLinking: { trustedProviders: ["google"], requireLocalEmailVerified: false } },
   socialProviders: env.googleEnabled ? { google: { clientId: env.googleClientId!, clientSecret: env.googleClientSecret! } } : {}, plugins: [nextCookies()],
 });
