@@ -30,6 +30,7 @@ export default function Home({ initialProjects = [], hasProjectAccess = false }:
           <a href="#proyectos">Proyectos</a>
           <a href="#como-funciona">Cómo funciona</a>
           <a href="#personas">Personas</a>
+          <a href="/blog">Blog</a>
           <a href="/participar">Participar</a>
           <a href="/nosotros">Nosotros</a>
         </nav>
