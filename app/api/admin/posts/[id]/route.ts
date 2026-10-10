@@ -12,12 +12,13 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
   const title = String(body.title ?? "").trim().slice(0, 180);
   if (!title) return Response.json({ error: "El título es obligatorio." }, { status: 400 });
   const youtubeUrl = String(body.youtubeUrl ?? "").trim();
-  if (!youtubeVideoId(youtubeUrl)) return Response.json({ error: "Agrega una URL válida de YouTube para la clase." }, { status: 400 });
-  const coverImageUrl = normalizeProjectImage(String(body.coverImageUrl ?? ""));
-  if (!coverImageUrl) return Response.json({ error: "Selecciona una imagen local de proyectos o agrega una URL HTTPS de imagen válida." }, { status: 400 });
+  if (youtubeUrl && !youtubeVideoId(youtubeUrl)) return Response.json({ error: "Agrega una URL válida de YouTube para la clase." }, { status: 400 });
+  const rawCover = String(body.coverImageUrl ?? "").trim();
+  const coverImageUrl = rawCover ? normalizeProjectImage(rawCover) : "";
+  if (rawCover && !coverImageUrl) return Response.json({ error: "Selecciona una imagen local de proyectos o agrega una URL HTTPS de imagen válida." }, { status: 400 });
   const status = body.status === "published" ? "published" : body.status === "archived" ? "archived" : "draft";
   const showOnHome = body.showOnHome === true || body.showOnHome === "on";
-  const [post] = await db.update(posts).set({ title, slug: slugify(String(body.slug || title)), excerpt: String(body.excerpt ?? "").trim(), content: String(body.content ?? "").trim(), category: String(body.category ?? "Proyecto").trim(), status, requiredAccessLevel: Math.max(0, Math.min(100, Number(body.requiredAccessLevel) || 1)), githubUrl: String(body.githubUrl ?? "").trim(), youtubeUrl, coverImageUrl, showOnHome, publishedAt: status === "published" ? now : null, updatedAt: now }).where(eq(posts.id, id)).returning();
+  const [post] = await db.update(posts).set({ title, slug: slugify(String(body.slug || title)), excerpt: String(body.excerpt ?? "").trim(), content: String(body.content ?? "").trim(), category: String(body.category ?? "Proyecto").trim(), status, requiredAccessLevel: Math.max(0, Math.min(100, Number(body.requiredAccessLevel) || 1)), githubUrl: String(body.githubUrl ?? "").trim(), youtubeUrl, coverImageUrl: coverImageUrl || "", showOnHome, publishedAt: status === "published" ? now : null, updatedAt: now }).where(eq(posts.id, id)).returning();
   if (!post) return Response.json({ error: "Entrada no encontrada." }, { status: 404 });
   await db.insert(auditLogs).values({ id: crypto.randomUUID(), actorId: member.id, action: "post.update", entityType: "post", entityId: id, detail: title, createdAt: now });
   return Response.json({ post });
