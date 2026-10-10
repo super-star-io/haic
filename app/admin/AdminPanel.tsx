@@ -39,7 +39,7 @@ function CoverImagePicker({ initialValue }: { initialValue: string }) {
     </div>
     <TextField className="editor-field cover-custom-url" value={value.startsWith("/projects/") && projectCoverLibrary.some((cover) => value === `/projects/${cover}`) ? "" : value} onChange={setValue}>
       <Label>O pega una URL de imagen</Label>
-      <Input type="url" placeholder="https://..."/>
+      <Input type="url" placeholder="https://ejemplo.com/portada.jpg"/>
     </TextField>
     {value&&<div className="cover-picker-preview"><img src={value} alt="Vista previa de la portada seleccionada"/><span>Portada seleccionada</span></div>}
     <small>Elige una miniatura o pega una URL HTTPS terminada en JPG, PNG, WebP o AVIF.</small>
@@ -65,14 +65,14 @@ export default function AdminPanel({ canPosts, canUsers, isSuper, canCreate = fa
   const manuelTargetExists=users.some(user=>normalizeEmail(user.email)==="n.manuelcamacho@gmail.com");
   const selected=editing??blank;
   return <div className="admin-layout"><aside><img src="/haic-logo.svg" alt="HAIC"/><span>{canCreate&&!canPosts?"Contribuciones":"Administración"}</span>{canPosts&&<button className={tab==="posts"?"active":""} onClick={()=>setTab("posts")}>Entradas</button>}{canUsers&&<button className={tab==="users"?"active":""} onClick={()=>setTab("users")}>Usuarios</button>}<a href="/blog">← Volver al blog</a></aside><main><header><div><span className="kicker">{canCreate&&!canPosts?"PUBLICAR EN HAIC":"PANEL DE CONTROL"}</span><h1>{tab==="posts"?"Entradas":"Usuarios y accesos"}</h1></div>{canPosts&&tab==="posts"&&<button className="button primary" onClick={()=>{setEditing(null);setCreating(true)}}>+ Nueva entrada</button>}</header>{notice&&<div className="notice">{notice}<button onClick={()=>setNotice("")}>×</button></div>}{(canPosts||canCreate)&&tab==="posts"&&<>{(creating||editing)&&<form className="editor-form" key={editing?.id ?? "new-entry"} onSubmit={save}><div className="form-title"><h2>{editing?"Editar entrada":"Nueva entrada"}</h2>{canPosts&&<button type="button" onClick={()=>{setEditing(null);setCreating(false)}}>Cerrar</button>}</div><div className="form-grid">
-<TextField className="editor-field" name="title" defaultValue={selected.title} isRequired><Label>Título</Label><Input /></TextField>
-<TextField className="editor-field" name="slug" defaultValue={selected.slug}><Label>Slug</Label><Input /></TextField>
+<TextField className="editor-field" name="title" defaultValue={selected.title} isRequired><Label>Título</Label><Input placeholder="Título de la entrada" /></TextField>
+<TextField className="editor-field" name="slug" defaultValue={selected.slug}><Label>Slug</Label><Input placeholder="titulo-de-la-entrada" /></TextField>
 <div className="editor-field"><Label id="post-category-label">Categoría</Label><Select aria-labelledby="post-category-label" name="category" defaultSelectedKey={selected.category || "Proyecto"} className="editor-select"><Select.Trigger><Select.Value /><Select.Indicator /></Select.Trigger><Select.Popover><ListBox>{["Proyecto","Artículo","Tutorial","Aprendizaje","Comunidad"].map((category)=><ListBox.Item id={category} key={category}>{category}</ListBox.Item>)}</ListBox></Select.Popover></Select></div>
 {canPosts?<div className="editor-field"><Label id="post-status-label">Estado</Label><Select aria-labelledby="post-status-label" name="status" defaultSelectedKey={selected.status} className="editor-select"><Select.Trigger><Select.Value /><Select.Indicator /></Select.Trigger><Select.Popover><ListBox><ListBox.Item id="draft">Borrador</ListBox.Item><ListBox.Item id="published">Publicado</ListBox.Item><ListBox.Item id="archived">Archivado</ListBox.Item></ListBox></Select.Popover></Select></div>:<input type="hidden" name="status" value="draft"/>}
-{canPosts&&<TextField className="editor-field" name="requiredAccessLevel" defaultValue={String(selected.requiredAccessLevel)}><Label>Nivel requerido</Label><Input type="number" min={0} max={100}/></TextField>}
-<TextField className="editor-field" name="githubUrl" defaultValue={selected.githubUrl}><Label>GitHub</Label><Input type="url" /></TextField>
-<TextField className="editor-field wide-field" name="excerpt" defaultValue={selected.excerpt}><Label>Resumen</Label><TextArea rows={3}/></TextField>
-<TextField className="editor-field wide-field" name="content" defaultValue={selected.content} isRequired={canCreate&&!canPosts}><Label>Contenido</Label><TextArea rows={12}/></TextField>
+{canPosts&&<TextField className="editor-field" name="requiredAccessLevel" defaultValue={String(selected.requiredAccessLevel)}><Label>Nivel requerido</Label><Input type="number" min={0} max={100} placeholder="1"/></TextField>}
+<TextField className="editor-field" name="githubUrl" defaultValue={selected.githubUrl}><Label>GitHub</Label><Input type="url" placeholder="https://github.com/usuario/proyecto" /></TextField>
+<TextField className="editor-field wide-field" name="excerpt" defaultValue={selected.excerpt}><Label>Resumen</Label><TextArea rows={3} placeholder="Describe brevemente de qué trata la entrada"/></TextField>
+<TextField className="editor-field wide-field" name="content" defaultValue={selected.content} isRequired={canCreate&&!canPosts}><Label>Contenido</Label><TextArea rows={12} placeholder="Escribe aquí el contenido de tu entrada"/></TextField>
 <CoverImagePicker initialValue={selected.coverImageUrl}/>
 <TextField className="editor-field wide-field" name="youtubeUrl" defaultValue={selected.youtubeUrl}><Label>YouTube (opcional)</Label><Input type="url" placeholder="https://www.youtube.com/watch?v=..."/><small>Si agregas una sesión, se reproducirá dentro del detalle de la entrada.</small></TextField>
 {canPosts&&<label className="wide-field home-visibility-field"><input type="checkbox" name="showOnHome" defaultChecked={selected.showOnHome}/><span><b>Mostrar esta entrada en la HOME</b><small>Actívalo para destacar el proyecto en la página principal.</small></span></label>}

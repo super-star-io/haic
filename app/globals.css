@@ -52,10 +52,10 @@
 
 /* HeroUI controls in the existing HAIC post editor */
 .editor-form .editor-field{display:flex;min-width:0;flex-direction:column;gap:8px;color:var(--ink)}
-.editor-form .editor-field>label,.editor-form .editor-field label{font:10px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
-.editor-form .editor-field [data-slot="input-wrapper"],.editor-form .editor-select [data-slot="trigger"]{width:100%;min-height:46px;border:1px solid #cbd1d8;border-radius:3px;background:#fff;color:var(--ink);box-shadow:none}
-.editor-form .editor-field input,.editor-form .editor-field textarea{width:100%;min-width:0;margin:0;padding:13px;border:1px solid #cbd1d8;border-radius:3px;background:#fff;color:var(--ink);font:14px Arial,sans-serif;letter-spacing:0;text-transform:none;box-shadow:none}
-.editor-form .editor-field [data-slot="input-wrapper"] input{border:0;padding:12px;outline:none}
+.editor-form .editor-field:not([data-slot="textfield"])>label{font:10px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--foreground,var(--ink))}
+.editor-form .editor-field [data-slot="input-wrapper"],.editor-form .editor-select [data-slot="trigger"]{width:100%;min-height:50px;border:1px solid #cbd1d8;border-radius:3px;background:var(--surface,#fff);color:var(--foreground,var(--ink));box-shadow:none}
+.editor-form .editor-field input,.editor-form .editor-field textarea{width:100%;min-width:0;margin:0;padding:18px 13px 8px;border:1px solid #cbd1d8;border-radius:3px;background:var(--surface,#fff);color:var(--foreground,var(--ink));font:14px Arial,sans-serif;letter-spacing:0;text-transform:none;box-shadow:none}
+.editor-form .editor-field [data-slot="input-wrapper"] input{border:0;padding:18px 13px 8px;outline:none}
 .editor-form .editor-field textarea{min-height:84px;resize:vertical}
 .editor-form .editor-field:has(textarea[name="content"]) textarea{min-height:280px}
 .editor-form .editor-field [data-slot="description"]{font:10px Arial,sans-serif;color:var(--muted);letter-spacing:0;text-transform:none}
@@ -64,6 +64,15 @@
 .editor-form .editor-select [data-slot="value"]{font:14px Arial,sans-serif;letter-spacing:0;text-transform:none}
 .editor-form .editor-field:focus-within [data-slot="input-wrapper"],.editor-form .editor-field input:focus,.editor-form .editor-field textarea:focus,.editor-form .editor-select [data-slot="trigger"]:focus-visible{outline:2px solid rgba(255,176,0,.45);outline-offset:1px;border-color:#b57c00}
 .editor-form .editor-field.wide-field{grid-column:1/-1}
+.editor-form .editor-field[data-slot="textfield"]{position:relative;gap:0;color:var(--foreground,var(--ink))}
+.editor-form .editor-field[data-slot="textfield"]>[data-slot="label"]{position:absolute;z-index:1;top:16px;left:13px;margin:0;padding:0 3px;background:var(--surface,#fff);color:var(--muted,var(--ink));font:12px Arial,sans-serif;letter-spacing:0;text-transform:none;pointer-events:none;transform-origin:left center;transition:top .18s ease,font-size .18s ease,color .18s ease,transform .18s ease}
+.editor-form .editor-field[data-slot="textfield"]:focus-within>[data-slot="label"],.editor-form .editor-field[data-slot="textfield"]:has(input:not(:placeholder-shown))>[data-slot="label"],.editor-form .editor-field[data-slot="textfield"]:has(textarea:not(:placeholder-shown))>[data-slot="label"]{top:-7px;color:var(--foreground,var(--ink));font-size:10px;transform:scale(.96)}
+.editor-form .editor-field[data-slot="textfield"] input::placeholder,.editor-form .editor-field[data-slot="textfield"] textarea::placeholder{color:var(--muted,var(--ink));opacity:0;transition:opacity .16s ease}
+.editor-form .editor-field[data-slot="textfield"]:focus-within input::placeholder,.editor-form .editor-field[data-slot="textfield"]:focus-within textarea::placeholder{opacity:.72}
+.editor-form .editor-field[data-slot="textfield"] [data-slot="input-wrapper"]{background:var(--surface,#fff)}
+.editor-form .editor-field[data-slot="textfield"] input,.editor-form .editor-field[data-slot="textfield"] textarea{background:transparent;color:var(--field-foreground,var(--foreground,var(--ink)))}
+.editor-form .editor-field[data-slot="textfield"]:focus-within>[data-slot="label"]{background:var(--surface,#fff)}
+.editor-form input[type="hidden"]{display:none}
 .cover-picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .cover-picker-option{min-width:0;padding:0;border:2px solid #e1e4e8;background:#fff;color:var(--ink);text-align:left;cursor:pointer;transition:border-color .15s ease,transform .15s ease}
 .cover-picker-option:hover{transform:translateY(-2px);border-color:#aab4c3}
